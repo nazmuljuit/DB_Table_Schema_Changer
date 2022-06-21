@@ -18,9 +18,7 @@ if ($result->num_rows > 0) {
   // output data of each row
  
   while($row = $result->fetch_assoc()) {
-
     echo "<h3>"."Table Name: " .$row["table_name"]."</h3><hr>"."<br>";
-
     $sql1 = "DESCRIBE ".$row["table_name"];
     $result1 = $conn->query($sql1);
     if($result1->num_rows > 0)
@@ -39,15 +37,22 @@ if ($result->num_rows > 0) {
 
             if($rdataType[1] == 0)
             {
-              echo "Field Name: " .$row1["Field"]." of ".$row["table_name"]." should be integer!"."<br>";
+              
+              $sql2 = "ALTER TABLE ".$row["table_name"]." MODIFY ".$row1["Field"]." INT";
+            
+
+              $conn->query($sql2);
+              // echo a message to say the UPDATE succeeded
+              echo "Field Name: " .$row1["Field"]." of ".$row["table_name"]." data type update successfully!"."<br>";
             }
             else if($rdataType[1] > 2)
             {
-              echo "Field Name: " .$row1["Field"]." of ".$row["table_name"]." decimal place should be less than 3!"."<br>";
-            }
-            else
-            {
-              echo "Field Name: " .$row1["Field"]." of ".$row["table_name"]." is ok!"."<br>";
+              $sql2 = "ALTER TABLE ".$row["table_name"]." MODIFY ".$row1["Field"]." decimal(".$rdataType[0].",2)";
+            
+
+              $conn->query($sql2);
+              // echo a message to say the UPDATE succeeded
+              echo "Field Name: " .$row1["Field"]." of ".$row["table_name"]."type range update successfully!"."<br>";
             }
 
         }
