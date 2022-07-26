@@ -36,6 +36,7 @@ if ($result->num_rows > 0) {
           
 
             $conn->query($sql2);
+            
             // echo a message to say the UPDATE succeeded
             echo "Table Name: " . $row["table_name"]."; Number: ".$i. " records UPDATED successfully"."<br>";
          

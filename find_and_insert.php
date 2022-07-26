@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "xrmxSaxh";
+$password = "";
 $dbname = "bdu_dev";
 
 // Create connection
@@ -10,7 +10,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$user_id = 1;
+$user_id = '1'
 $sql = "SELECT id FROM auth_permissions";
 $result = $conn->query($sql);
 
@@ -20,17 +20,9 @@ if ($result->num_rows > 0)
  
   while($row = $result->fetch_assoc()) 
   {
-    $sql2="insert into auth_user_permissions_demo(USER_ID,PERMISSION_ID) 
-        values('" . $user_id ."','" . $row["id"] ."')";
-     
 
-     if ($conn->query($sql2) === TRUE) {
-     echo "<h3>"."ID: " .$row["id"]." Successfully insert!</h3><hr>"."<br>";
-    } else {
-      echo "Error: " . $sql2 . "<br>" . $conn->error;
-    }
-
-       
+       $sql2 = "INSERT INTO auth_user_permissions_demo ( USER_ID, PERMISSION_ID, CREATE,READ,UPDATE,DELETE ) VALUES ( $user_id, $row["id"],1,1,1)";
+       $conn->query($sql2);
 
   }
 }
